@@ -1,0 +1,38 @@
+<ServerManagerConfiguration>
+  <ProxyGroup name="filters">
+    <!-- ================================================================== -->
+    <SourceProxy name="KNNGraphFilter" class="vtkKNNGraphFilter" label="KNNGraphFilter">
+      <Documentation
+         long_help="Create a nearest neighbor graph on a set of points."
+         short_help="Create a nearest neighbor graph on a set of points.">
+      </Documentation>
+
+      <InputProperty
+         name="Input"
+         command="AddInputConnection"
+         clean_command="RemoveAllInputs">
+        <ProxyGroupDomain name="groups">
+          <Group name="sources"/>
+          <Group name="filters"/>
+        </ProxyGroupDomain>
+        <DataTypeDomain name="input_type">
+          <DataType value="vtkPointSet"/>
+        </DataTypeDomain>
+        <Documentation>
+          Set the input point set.
+        </Documentation>
+      </InputProperty>
+
+         <IntVectorProperty
+                            name="KNeighbors"
+                              command="SetKNeighbors"
+                              number_of_elements="1"
+                              default_values="5">
+         </IntVectorProperty>
+
+
+    </SourceProxy>
+    <!-- End FullyConnectedGraphFilter -->
+  </ProxyGroup>
+  <!-- End Filters Group -->
+</ServerManagerConfiguration>
