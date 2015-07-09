@@ -15,7 +15,7 @@ class vtkKNNGraphFilter : public vtkGraphAlgorithm
 {
   public:
     static vtkKNNGraphFilter *New();
-    vtkTypeRevisionMacro(vtkKNNGraphFilter, vtkGraphAlgorithm);
+    vtkTypeMacro(vtkKNNGraphFilter, vtkGraphAlgorithm);
     void PrintSelf(ostream &os, vtkIndent indent);
     
     //How many neighbors to connect each point to 
