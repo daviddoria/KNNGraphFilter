@@ -9,20 +9,35 @@ ENABLE_TESTING()
 FIND_PACKAGE(VTK REQUIRED)
 INCLUDE(${VTK_USE_FILE})
 
-SET(BUILD_PARAVIEW_PLUGIN OFF CACHE BOOL "Build Paraview plugin?")
+add_library(KNNGraphFilter
+    vtkKNNGraphFilter.cxx)
+target_link_libraries(KNNGraphFilter ${VTK_LIBRARIES})
 
+SET(BUILD_PARAVIEW_PLUGIN OFF CACHE BOOL "Build Paraview plugin?")
 if(BUILD_PARAVIEW_PLUGIN)
  SUBDIRS(plugin)
 endif(BUILD_PARAVIEW_PLUGIN)
 
-ADD_EXECUTABLE(vtkKNNGraphFilterExample vtkKNNGraphFilterExample.cxx
-vtkKNNGraphFilter.cxx
-)
-TARGET_LINK_LIBRARIES(vtkKNNGraphFilterExample ${VTK_LIBRARIES})
+option(BUILD_EXAMPLES "Build examples?" OFF)
+if(BUILD_EXAMPLES)
+  message("Building examples...")
+  ADD_EXECUTABLE(vtkKNNGraphFilterExample vtkKNNGraphFilterExample.cxx
+  vtkKNNGraphFilter.cxx
+  )
+  TARGET_LINK_LIBRARIES(vtkKNNGraphFilterExample ${VTK_LIBRARIES})
+endif()
+
+option(BUILD_TESTING "Build tests?" OFF)
+if(BUILD_TESTING)
+  message("Building tests...")
+  ADD_EXECUTABLE(vtkKNNGraphFilterTest vtkKNNGraphFilterTest.cxx
+  vtkKNNGraphFilter.cxx
+  )
+  TARGET_LINK_LIBRARIES(vtkKNNGraphFilterTest ${VTK_LIBRARIES})
+  ADD_TEST(vtkKNNGraphFilterTest vtkKNNGraphFilterTest ${CMAKE_SOURCE_DIR}/data/Input.vtp ${CMAKE_SOURCE_DIR}/data/GroundTruth.graph)
+endif()
 
 
-ADD_EXECUTABLE(vtkKNNGraphFilterTest vtkKNNGraphFilterTest.cxx
-vtkKNNGraphFilter.cxx
-)
-TARGET_LINK_LIBRARIES(vtkKNNGraphFilterTest ${VTK_LIBRARIES})
-ADD_TEST(vtkKNNGraphFilterTest vtkKNNGraphFilterTest ${CMAKE_SOURCE_DIR}/data/Input.vtp ${CMAKE_SOURCE_DIR}/data/GroundTruth.graph)
+
+
+

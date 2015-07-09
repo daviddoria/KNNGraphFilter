@@ -20,7 +20,6 @@
 
 #include "vtkKNNGraphFilter.h"
 
-vtkCxxRevisionMacro(vtkKNNGraphFilter, "$Revision: 1.70 $");
 vtkStandardNewMacro(vtkKNNGraphFilter);
 
 vtkKNNGraphFilter::vtkKNNGraphFilter()
@@ -63,7 +62,7 @@ int vtkKNNGraphFilter::RequestData(vtkInformation *vtkNotUsed(request),
       vtkSmartPointer<vtkMutableUndirectedGraph>::New();
   
   //create a vector to store vertex IDs
-  vtkstd::vector<vtkIdType> vertices(input->GetNumberOfPoints());
+  std::vector<vtkIdType> vertices(input->GetNumberOfPoints());
   
   //add a vertex for every point
   for(unsigned int i = 0; i < input->GetNumberOfPoints(); i++)
